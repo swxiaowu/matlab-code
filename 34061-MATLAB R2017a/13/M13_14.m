@@ -1,0 +1,17 @@
+ clear all;
+I=imread('eight.tif');
+J=double(I);
+x=(257-J)./255;
+S=imnoise(x,'gaussian',0,0.005);
+d1=0.3.*[1,1,1;1,2,1;1,1,1];
+J1=conv2(S,d1,'same');
+d2=[0,-1,0;-1,5,-1;0,-1,0];
+J2=conv2(S,d2,'same');
+subplot(221);imshow(I);
+title('原图像');
+subplot(222);imshow(S);
+title('添加高斯噪声图像');
+subplot(223);imshow(J1);
+title('去噪后图像');
+subplot(224);imshow(J2/max(max(J2))+J/255);
+title('边缘增强图像');
